@@ -1,0 +1,90 @@
+.app {
+    background-color: #a59d9d;
+    display: inline-block;
+    height: 100vh;
+}
+
+.title {
+    background-color: #7d11e2;
+    padding: 25px;
+    margin: 2%;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.title h1 {
+    font-size: 2.5em;
+    color: white;
+}
+
+.board-img {
+    width: 50%;
+    margin: 2%;
+    padding: 2%;
+    border-radius: 2%;
+    background-color: #ffffff; 
+}
+.dices {
+    background-color: #7d11e2;
+    padding: 2%;
+    border: 1px #DADADA solid;
+}
+
+.dice {
+    display: inline;
+}
+
+.dice img {
+    width: 28%;
+    margin:2%;
+}
+
+.raise-btn {
+    width: 100%;
+    height: 50px;
+}
+
+button {
+    color: #ffffff;
+    background:  rgb(182, 40, 40);;
+    border: 1px #DADADA solid;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 9pt;
+    outline: none;
+}
+
+button:hover {
+    border: 1px #C6C6C6 solid;
+    box-shadow: 1px 1px 1px #EAEAEA;
+    color: #333333;
+    background: rgb(238, 143, 143);
+}
+
+button:active {
+    box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
+.control-container {
+    display: inline-block;
+    background-color: #ffffff;
+    width: 34%;
+    margin: 2%;
+    padding: 2%;
+    border-radius: 2%;
+    vertical-align: top;
+}
+
+@media only screen and (max-width: 700px) {
+    .control-container {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .board-img {
+        display: block;
+        margin: auto;
+        width: 90%;
+    }
+  }
