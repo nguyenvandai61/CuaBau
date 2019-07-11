@@ -1,10 +1,12 @@
-.app {
-    background-color: #a59d9d;
-    display: inline-block;
-    height: 100vh;
-}
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
 
+body {
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    background-repeat: no-repeat;
+}
 .title {
+    
+    font-family: 'Pacifico', cursive;
     background-color: #7d11e2;
     padding: 25px;
     margin: 2%;
@@ -13,16 +15,44 @@
 }
 
 .title h1 {
-    font-size: 2.5em;
-    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: inline-block;
+    color: #4b3d3d;
+    font-size: 7vw;
+
+    
+    color: #B20000;
+    text-shadow: 2px 2px #ff0000;
 }
 
 .board-img {
-    width: 50%;
+    width: 60%;
+    margin: 10px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+}
+.item {
+    width: 25%;
     margin: 2%;
     padding: 2%;
     border-radius: 2%;
     background-color: #ffffff; 
+    display: inline-block;
+    position: relative;
+}
+.item p {
+    position: absolute;
+    
+}
+.item img {
+    width: 100%;
+}
+
+.bet-coin {
+    position: absolute;
+    top: 0px;
 }
 .dices {
     background-color: #7d11e2;
@@ -40,42 +70,47 @@
 }
 
 .raise-btn {
+    margin-top: 5px;
     width: 100%;
     height: 50px;
-}
-
-button {
-    color: #ffffff;
-    background:  rgb(182, 40, 40);;
-    border: 1px #DADADA solid;
-    padding: 5px 10px;
-    border-radius: 2px;
-    font-weight: bold;
-    font-size: 9pt;
-    outline: none;
-}
-
-button:hover {
-    border: 1px #C6C6C6 solid;
-    box-shadow: 1px 1px 1px #EAEAEA;
-    color: #333333;
-    background: rgb(238, 143, 143);
-}
-
-button:active {
-    box-shadow: inset 1px 1px 1px #DFDFDF;   
 }
 
 .control-container {
     display: inline-block;
     background-color: #ffffff;
-    width: 34%;
+    width: 30%;
     margin: 2%;
     padding: 2%;
     border-radius: 2%;
     vertical-align: top;
 }
 
+.coin {
+    font-size: 1em;
+    float: right;
+}
+
+button {
+    background-color: #004A7F;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    
+    font-size: 20px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    animation: glowing 5000ms infinite;
+
+    font-family: 'Pacifico', cursive;
+
+}
+
+
+/* Mobile view */
 @media only screen and (max-width: 700px) {
     .control-container {
         display: block;
@@ -88,3 +123,21 @@ button:active {
         width: 90%;
     }
   }
+
+  
+@keyframes glowing {
+    0% {
+        background-color: #B20000;
+        -webkit-box-shadow: 0 0 3px #B20000;
+    }
+
+    50% {
+        background-color: #FF0000;
+        -webkit-box-shadow: 0 0 40px #FF0000;
+    }
+
+    100% {
+        background-color: #B20000;
+        -webkit-box-shadow: 0 0 3px #B20000;
+    }
+}

@@ -14,37 +14,44 @@ class Dice extends React.Component {
         this.state = {
             point: HUOU,
         }
-        this.raiseDice = this.raiseDice.bind(this);
+        this.pickNumber = this.pickNumber.bind(this);
         this.offRaiseDice = this.offRaiseDice.bind(this);
+        this.rollDice = this.rollDice.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.isRaised !== nextProps.isRaised && nextProps.isRaised) {
-            let loopRaise = setInterval(
-                this.raiseDice, 100 
-            );
-            setTimeout(() => { clearInterval(loopRaise)}, 2000);
-            this.offRaiseDice();
+           this.rollDice();
         }
     }
-    raiseDice() {
+    async rollDice() {
+        let loopRaise = await setInterval(
+            this.pickNumber, 100 
+        );
+        setTimeout(() => { 
+            clearInterval(loopRaise)
+            this.offRaiseDice(this.state.point);
+        }
+        
+        , 2000);
+        
+    }
+    pickNumber() {
         const value = Math.floor((Math.random() * 6));
         this.setState({point: value});
     }
 
-    offRaiseDice() {
-        console.log("offRaiseDice");
-
-        this.props.toogleEndRaise();
+    offRaiseDice(point) {
+        this.props.toogleEndRaise(point);
     }
 
     imageHandler() {
         switch(this.state.point) {
-            case 1: return Bau;
-            case 2: return Ga;
-            case 3: return Ca;
-            case 4: return Cua;
-            case 5: return Tom;
+            case 1: return Cua;
+            case 2: return Tom;
+            case 3: return Ga;
+            case 4: return Bau;
+            case 5: return Ca;
             default: return Huou
         }
     }
