@@ -14,7 +14,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       isRaised: false,
-      coin: 1000,
+      coin: 10000,
       betStore: [0, 0, 0, 0, 0, 0],
       result: [],
       isGameover: false
