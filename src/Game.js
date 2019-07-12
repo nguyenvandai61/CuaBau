@@ -1,6 +1,5 @@
 import React from "react";
 import Dice from "./Dice";
-
 import Bau from "./bau.jpg";
 import Ca from "./ca.jpg";
 import Cua from "./cua.jpg";
@@ -8,15 +7,17 @@ import Huou from "./huou.jpg";
 import Ga from "./ga.jpg";
 import Tom from "./tom.jpg";
 import BoardItem from "./BoardItem";
-
+import CoinContainer from "./CoinContainer";
+import GameOver from "./GameOver";
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isRaised: false,
-      coin: 10000,
+      coin: 1000,
       betStore: [0, 0, 0, 0, 0, 0],
-      result: []
+      result: [],
+      isGameover: false
     };
     this.toggleRaise = this.toggleRaise.bind(this);
     this.toggleEndRaise = this.toggleEndRaise.bind(this);
@@ -24,18 +25,28 @@ class Game extends React.Component {
     this.item2Int = this.item2Int.bind(this);
     this.int2Item = this.int2Item.bind(this);
     this.createBoard = this.createBoard.bind(this);
+    this.restartGame = this.restartGame.bind(this);
   }
 
   toggleRaise() {
     console.log("raise");
-    this.setState({ isRaised: true });
+    
+    this.setState({ isRaised: true }, 
+      ()=>{
+        document.getElementsByClassName('roll-btn')[0].style.pointerEvents = 'none';
+      }
+    );
   }
 
   toggleEndRaise(value) {
-    this.setState({ isRaised: false });
+    this.setState({ isRaised: false },
+      ()=>{
+        document.getElementsByClassName('roll-btn')[0].style.pointerEvents = 'auto';
+      }
+      );
     let newResult = this.state.result;
     newResult.push(value);
-    if (newResult.length == 3) this.award();
+    if (newResult.length === 3) this.award();
   }
   award() {
     let principleFlag = false;
@@ -45,7 +56,7 @@ class Game extends React.Component {
     console.log(betStore);
     let coin = this.state.coin;
     for (let i = 0; i < 3; i++) {
-      if (betStore[result[i]] != 0) {
+      if (betStore[result[i]] !== 0) {
         if (!principleFlag) {
           coin += betStore[result[i]] * 1000;
           principleFlag = true;
@@ -54,17 +65,35 @@ class Game extends React.Component {
         coin += betStore[result[i]] * 1000;
         console.log("cộng tiền lời");
       }
-      this.setState({ result: [], betStore: [0, 0, 0, 0, 0, 0], coin: coin });
     }
+    if(coin === 0)
+       this.setState({isGameover: true});
+
+      if(this.state.isGameover) {
+        document.getElementsByClassName("gameover")[0].style.display = "inline-block";
+        document.getElementsByClassName('roll-btn')[0].style.pointerEvents = 'none';
+      }
+
+      this.setState({ result: [], betStore: [0, 0, 0, 0, 0, 0], coin: coin });
   }
+  restartGame() {
+    let coin = 10000;
+    this.setState({ coin: coin, isGameover: false });
+    document.getElementsByClassName("gameover")[0].style.display = "none";
+    console.log("ddd");
+    document.getElementsByClassName('roll-btn')[0].style.pointerEvents = 'auto';
+  }
+
   clickHandler(e) {
-    let newBet = [];
-    Object.assign(newBet, this.state.betStore);
-    newBet[this.item2Int(e.target.alt)]++;
-    let coin = this.state.coin;
-    coin -= 1000;
-    console.log(newBet);
-    this.setState({ coin: coin, betStore: newBet });
+    if (this.state.coin > 0) {
+      let newBet = [];
+      Object.assign(newBet, this.state.betStore);
+      newBet[this.item2Int(e.target.alt)]++;
+      let coin = this.state.coin;
+      coin -= 1000;
+      console.log(newBet);
+      this.setState({ coin: coin, betStore: newBet });
+    }
   }
 
   int2Item(value) {
@@ -88,6 +117,7 @@ class Game extends React.Component {
       case 5:
         item = "ca";
         break;
+      default: 
     }
     return item;
   }
@@ -114,48 +144,47 @@ class Game extends React.Component {
     let board = [];
     let items = [Huou, Cua, Tom, Ga, Bau, Ca];
     for (let i = 0; i < 6; i++) {
-      board.push(<BoardItem file={items[i]}
-        item = {`${this.int2Item(i)}`}
-        clickHandler = {this.clickHandler}
-        betStore = {this.state.betStore[i] * 1000}
-      />);
+      board.push(
+        <BoardItem
+          key={i}
+          file={items[i]}
+          item={`${this.int2Item(i)}`}
+          clickHandler={this.clickHandler}
+          betStore={this.state.betStore[i] * 1000}
+        />
+      );
     }
     return board;
   }
+
   render() {
-    
     return (
       <div>
-        <div className="board-img">
-          {this.createBoard()};
-         </div>
-
+        <div className="title">
+          <h1>Cua Bầu</h1>
+          <CoinContainer coin={this.state.coin} />
+        </div>
+        <div className="board-img">{this.createBoard()};</div>
         <div className="control-container">
           <div className="dices">
             <Dice
               isRaised={this.state.isRaised}
               toogleEndRaise={this.toggleEndRaise}
-              getDiceValue={this.getDiceValue}
             />
             <Dice
               isRaised={this.state.isRaised}
               toogleEndRaise={this.toggleEndRaise}
-              getDiceValue={this.getDiceValue}
             />
             <Dice
               isRaised={this.state.isRaised}
               toogleEndRaise={this.toggleEndRaise}
-              getDiceValue={this.getDiceValue}
             />
           </div>
 
-          <button className="raise-btn" onClick={this.toggleRaise}>
+          <button className="roll-btn" onClick={this.toggleRaise}>
             Đổ
           </button>
-          <div>
-            <h2>Coin: </h2>
-            <h1 className="coin"> {this.state.coin}</h1>
-          </div>
+          <GameOver restartGame={this.restartGame}/>
         </div>
       </div>
     );

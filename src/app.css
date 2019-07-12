@@ -3,13 +3,16 @@
 body {
     background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
     background-repeat: no-repeat;
+    box-sizing: border-box;
+    height:100%;
+    
 }
 .title {
     
     font-family: 'Pacifico', cursive;
     background-color: #7d11e2;
-    padding: 25px;
-    margin: 2%;
+  
+    margin: 0% 2%;
     border-radius: 25px;
     text-align: center;
 }
@@ -20,15 +23,35 @@ body {
     display: inline-block;
     color: #4b3d3d;
     font-size: 7vw;
-
+    width: 50%;
     
     color: #B20000;
     text-shadow: 2px 2px #ff0000;
 }
 
+.coin-container {
+    position: relative;
+    float: right;
+    width: 40%;
+}
+
+.coin-container img {
+    width: 100%;
+}
+
+.coin {
+    margin: 0;
+    position: absolute;
+    top: 0%;
+    right: 25%;
+    font-size: 5vw;
+    color: white;
+}
+
+
 .board-img {
     width: 60%;
-    margin: 10px;
+    margin: 1%;
     display: inline-block;
     background-color: white;
     border-radius: 5px;
@@ -51,8 +74,13 @@ body {
 }
 
 .bet-coin {
+    font-family: 'Pacifico', cursive;
+
     position: absolute;
-    top: 0px;
+    font-size: 2em;
+    top: 10%;
+    left: 10%;
+    color: #080808bd;
 }
 .dices {
     background-color: #7d11e2;
@@ -69,7 +97,7 @@ body {
     margin:2%;
 }
 
-.raise-btn {
+.roll-btn {
     margin-top: 5px;
     width: 100%;
     height: 50px;
@@ -85,10 +113,6 @@ body {
     vertical-align: top;
 }
 
-.coin {
-    font-size: 1em;
-    float: right;
-}
 
 button {
     background-color: #004A7F;
@@ -109,6 +133,24 @@ button {
 
 }
 
+.gameover {
+    display: none;
+    padding: 4px 8px;
+    background: #740c45;
+
+    font-family: 'Pacifico', cursive;
+        font-size: 4vw;
+        color: white;
+        
+        position: absolute;
+
+        text-align: center;
+    border-radius: 25px;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+}
 
 /* Mobile view */
 @media only screen and (max-width: 700px) {
@@ -122,6 +164,9 @@ button {
         margin: auto;
         width: 90%;
     }
+    .gameover {
+        font-size: 14vw;
+    }
   }
 
   
@@ -130,7 +175,7 @@ button {
         background-color: #B20000;
         -webkit-box-shadow: 0 0 3px #B20000;
     }
-
+    
     50% {
         background-color: #FF0000;
         -webkit-box-shadow: 0 0 40px #FF0000;

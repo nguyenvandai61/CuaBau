@@ -11,10 +11,7 @@ const App = () => {
     // componentDidMount
     return (
     <div className="app">
-        <div className="title">
-         <h1>Cua Bầu</h1>
-
-        </div>
+        
         
         <Game/>
     </div>
